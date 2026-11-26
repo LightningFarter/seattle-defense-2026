@@ -62,10 +62,11 @@ for rows in drive_rows.values():
         if offense_scored_td:
             points += int(row['extra_point_result'] == 'good') + 2 * int(row['two_point_conv_result'] == 'success')
     week = int(first['week'])
+    turnover_start = first['drive_start_transition'] in {'INTERCEPTION', 'FUMBLE'}
     if first['defteam'] == 'SEA':
-        drives.append([week, group, points, spot, first['posteam']])
+        drives.append([week, group, points, spot, first['posteam'], turnover_start])
     else:
-        bucket = drive_comparison[week, group]
+        bucket = drive_comparison[week, group, turnover_start]
         bucket[0] += 1
         bucket[1] += points
 
@@ -77,4 +78,4 @@ payload = {'plays': seattle, 'weeks': sorted(seattle_weeks),
            'latest_seattle_game': max(play[6] for play in seattle)}
 Path('data.js').write_text('globalThis.SEA_DEFENSE = ' + json.dumps(payload, separators=(',', ':')) + ';\n')
 print(f'{len(seattle)} Seattle snaps, {len(seattle_weeks)} games, {sum(x[4] for x in payload["comparison"])} league snaps')
-print(f'{len(drives)} Seattle defensive drives, {sum(x[2] for x in payload["drive_comparison"])} league drives')
+print(f'{len(drives)} Seattle defensive drives, {sum(x[3] for x in payload["drive_comparison"])} league drives')

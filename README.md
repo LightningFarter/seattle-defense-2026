@@ -1,6 +1,6 @@
 # Seattle Defense · 2026 Snap Explorer
 
-A static explorer for Seattle's 2026 regular-season defense. Its field-position table compares opposing offensive scoring with the rest of the league. The down-and-distance matrix compares offensive EPA across the same game weeks. Select a matrix cell to inspect representative Seattle plays.
+A static explorer for Seattle's 2026 regular-season defense. Its field-position table compares opposing offensive scoring with the rest of the league, optionally limited to drives that followed an interception or fumble. The down-and-distance matrix compares offensive EPA across the same game weeks. Select a matrix cell to inspect representative Seattle plays.
 
 Open `index.html` in a browser. The app has no service dependencies.
 

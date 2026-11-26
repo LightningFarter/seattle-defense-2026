@@ -82,12 +82,14 @@ function render() {
 
 function renderDrives(week) {
   const table = $('drive-matrix');
+  const start = $('transition').value;
+  const selected = flag => start === 'all' || flag === (start === 'turnover');
   const groups = ['Own 1–25', 'Own 26–49', 'Midfield or better'];
   const rows = groups.map((label, group) => {
-    const sea = data.drives.filter(row => row[1] === group && (week === 'all' || row[0] === +week));
-    const league = data.drive_comparison.filter(row => row[1] === group && (week === 'all' || row[0] === +week));
+    const sea = data.drives.filter(row => selected(row[5]) && row[1] === group && (week === 'all' || row[0] === +week));
+    const league = data.drive_comparison.filter(row => selected(row[2]) && row[1] === group && (week === 'all' || row[0] === +week));
     const points = sea.reduce((sum, row) => sum + row[2], 0);
-    const [n, p] = league.reduce(([count, score], row) => [count + row[2], score + row[3]], [0, 0]);
+    const [n, p] = league.reduce(([count, score], row) => [count + row[3], score + row[4]], [0, 0]);
     const tr = make('tr');
     const title = make('th', label);
     title.scope = 'row';
@@ -99,6 +101,7 @@ function renderDrives(week) {
 
 for (const filter of [game, type]) filter.onchange = () => { cell = null; render(); };
 order.onchange = render;
+$('transition').onchange = () => renderDrives(game.value);
 $('reset').onclick = () => { cell = null; render(); game.focus(); };
 $('coverage').textContent = `${data.weeks.length} Seattle games in this snapshot, latest dated ${data.latest_seattle_game}.`;
 render();
