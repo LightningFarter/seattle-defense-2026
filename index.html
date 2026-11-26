@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seattle Defense · 2026 Snap Explorer</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="data.js"></script>
+<script defer src="app.js"></script>
+</head>
+<body>
+<main>
+<header><p class="label">2026 regular season</p><h1>Seattle Defense</h1><p>Explore which downs and distances Seattle defended better than the league.</p></header>
+<section class="controls" aria-label="Filters">
+<label>Game <select id="week"><option value="all">All Seattle games</option></select></label>
+<label>Play type <select id="kind"><option value="all">All scrimmage plays</option><option value="pass">Pass</option><option value="run">Run</option></select></label>
+</section>
+<section class="stats" aria-label="Summary" aria-live="polite">
+<div><span>Seattle snaps</span><strong id="snaps"></strong></div>
+<div><span>Seattle EPA allowed / snap</span><strong id="sea"></strong></div>
+<div><span>Other defenses, same weeks</span><strong id="league"></strong></div>
+</section>
+<section class="panel drive-panel"><h2>What happened after a short field?</h2><p>Compare points scored by opposing offenses from similar starting field position. The game filter applies here. The play-type filter applies to the snap analysis below.</p><table id="drive-matrix"><caption class="sr">Opposing offensive scoring by starting field position</caption><thead><tr><th scope="col">First scrimmage spot</th><th scope="col">Seattle drives</th><th scope="col">Seattle pts/drive</th><th scope="col">League pts/drive (drives)</th></tr></thead><tbody></tbody></table></section>
+<div class="grid">
+<section class="panel"><h2>Down and distance</h2><p>Numbers show Seattle EPA allowed minus the league average for that situation. Negative favors Seattle.</p><table id="matrix"><caption class="sr">EPA per snap difference by down and distance</caption></table></section>
+<section class="panel"><h2 id="review">Seattle snaps</h2><div class="play-controls"><label>Order <select id="order"><option value="spread">Largest EPA swings</option><option value="defense">Best for Seattle</option><option value="offense">Best for offense</option></select></label><button id="reset" hidden>Show all situations</button></div><p id="sample" aria-live="polite"></p><ol id="plays"></ol></section>
+</div>
+<footer>
+<p id="coverage"></p><p>EPA is expected points added by the offense. Each counted snap is a regular-season run or pass with an offense, defense, down and finite EPA. Penalty plays count only when the source classifies them as a run or pass. League comparisons exclude Seattle and use the same game weeks and play type. These are raw averages, with no opponent-strength adjustment. Sacks are in the source’s pass category. A drive starts at its first counted scrimmage play and includes offensive touchdowns, field goals and ensuing conversions within that drive. Returns and safeties are excluded.</p>
+<p>Data <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">nflverse play-by-play</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Independent analysis.</p>
+</footer>
+</main>
+</body>
+</html>
